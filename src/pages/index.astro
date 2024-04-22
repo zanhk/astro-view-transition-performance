@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+import Hero from "@/components/sections/Hero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout>
-	<a href="/importonly">Navigate to importonly page</a><br />
-	<a href="/simple">Navigate to simple page</a><br />
-	<h1>This page have no script on it</h1>
+	<Hero />
 </BaseLayout>

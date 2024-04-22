@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--base-padding-x: max(7vw, 60px);
+	--base-padding-y: clamp(30px, 4vw, 50px);
+}
+
+@media (max-width: 812px) {
+	:root {
+		--base-padding-x: 25px;
+		--base-padding-y: 25px;
+	}
+}
+
+html {
+	scrollbar-gutter: stable;
+	@apply overflow-x-hidden;
+}

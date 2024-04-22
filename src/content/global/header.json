@@ -1,0 +1,39 @@
+{
+	"logo": {
+		"title": "DENTIST",
+		"imagePath": null
+	},
+	"pages": [
+		{
+			"title": "Chi siamo",
+			"link": "/chisiamo"
+		},
+		{
+			"title": "Servizi",
+			"link": "/servizi"
+		},
+		{
+			"title": "Listino",
+			"link": "/listino"
+		},
+		{
+			"title": "Blog",
+			"link": "/blog"
+		},
+		{
+			"title": "Contatti",
+			"link": "/contatti"
+		}
+	],
+	"actions": [
+		{
+			"title": "Prenota una visita",
+			"link": "/prenota",
+			"style": "button"
+		}
+	],
+	"contacts": {
+		"phone": " +39 0421 330997",
+		"mail": "studioprodental@gmail.com"
+	}
+}

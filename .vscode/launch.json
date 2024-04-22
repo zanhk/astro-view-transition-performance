@@ -1,7 +1,6 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-		// change here if you are on macos
 		{
 			"command": "call .\\node_modules\\.bin\\astro dev --host 127.0.0.1",
 			"name": "server",

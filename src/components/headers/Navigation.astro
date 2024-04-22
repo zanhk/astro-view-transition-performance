@@ -1,0 +1,193 @@
+---
+import { Image } from "astro:assets";
+import Link from "@/components/primitives/Link.astro";
+import { header } from "@/content";
+import Container from "../primitives/Container.astro";
+
+const imagePath = header.logo.imagePath;
+
+interface Props {
+	showTopBar?: boolean;
+}
+
+const { showTopBar } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/global/**/*.{webp,jpeg,jpg,png,gif,svg}",
+);
+---
+
+<header
+	transition:persist
+	x-data=`{ open: false, transparent: window.location.pathname === "/" }`
+	x-init=`() => {
+		const checkTransparent = () => {
+			transparent = window.location.pathname === "/";
+		};
+		document.removeEventListener('astro:after-swap', checkTransparent);
+		document.addEventListener('astro:after-swap', checkTransparent);
+	}`
+	class:list={["mx-auto w-full justify-center absolute z-20"]}
+	:class=`transparent
+			? "bg-transparent text-primary-800"
+			: "bg-white text-primary-700 shadow-large"`
+>
+	{
+		showTopBar && (
+			<div class="hidden lg:flex h-20 bg-secondary-400">
+				<div class="flex justify-between">
+					<div class="flex">
+						<div />
+					</div>
+					<div class="flex" />
+				</div>
+			</div>
+		)
+	}
+	<Container>
+		<div
+			class="mx-auto w-full flex flex-col xl:flex-row py-4 xl:py-6 xl:items-stretch xl:justify-between"
+			:class="{'fixed top-0 left-0 w-screen h-screen bg-white z-20 px-6': open}"
+		>
+			<div class="items-center flex justify-between flex-row">
+				<div class="h-full flex items-center py-2">
+					<a
+						class="items-center font-bold gap-3 inline-flex text-lg tracking-tighter"
+						href="/"
+					>
+						{
+							imagePath != null && images[imagePath] && (
+								<Image
+									src={images[imagePath]()}
+									alt="Logo"
+									height={50}
+									class="h-10 w-auto xl:h-12 object-contain"
+								/>
+							)
+						}
+						{
+							header.logo?.title && (
+								<span class="uppercase">
+									{header.logo.title}
+								</span>
+							)
+						}
+					</a>
+				</div>
+				<button
+					class="focus:outline-none focus:shadow-outline xl:hidden ml-auto"
+					@click="open = !open"
+				>
+					<svg
+						class="h-8 w-8"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							:class="{'hidden': open, 'inline-flex': !open }"
+							class="inline-flex"
+							d="M4 6h16M4 12h16M4 18h16"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+						>
+						</path><path
+							:class="{'hidden': !open, 'inline-flex': open }"
+							class="hidden"
+							d="M6 18L18 6M6 6l12 12"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+						>
+						</path>
+					</svg>
+				</button>
+			</div>
+			<nav
+				:class="{'flex': open, 'hidden': !open}"
+				class="flex-col xl:pl-20 items-center flex-grow hidden xl:flex text-lg tracking-wide xl:flex-row xl:justify-start xl:mt-0 xl:p-0 pt-10 xl:pt-0 py-6"
+			>
+				{
+					header.pages.map((item) => (
+						<a
+							class="menu-item duration-300 ease-in-out focus:outline-none focus:shadow-none focus:text-orange/90 hover:text-lila-900 xl:my-0 px-4 py-2 transform transition"
+							href={item.link}
+						>
+							{item.title}
+						</a>
+					))
+				}
+				<div
+					class="xl:ml-auto flex xl:flex-row pt-6 xl:pt-0 flex-col-reverse items-center gap-6 xl:gap-8"
+				>
+					<a
+						href=`tel:${header.contacts.phone}`
+						data-shake-effect-container
+						class="inline-flex items-center gap-3 cursor-pointer"
+					>
+						<span>{header.contacts.phone}</span>
+					</a>
+					{
+						header.actions.map((action) => (
+							<Link
+								style={action.style as "outline" | "button"}
+								class=""
+								href={action.link}
+							>
+								<span>{action.title}</span>
+							</Link>
+						))
+					}
+				</div>
+			</nav>
+		</div>
+	</Container>
+</header>
+
+<style>
+	a.menu-item::before {
+		content: "";
+		position: absolute;
+		width: calc(100% - 30px);
+		height: 4px;
+		background-color: #29ccad;
+		bottom: 5px;
+		left: 15px;
+		right: 15px;
+		transform-origin: right;
+		transform: scaleX(0);
+		transition: transform 0.3s ease-in-out;
+	}
+
+	a.menu-item:hover::before {
+		transform: scaleX(1);
+		transform-origin: left;
+	}
+
+	header.shadow-large {
+		box-shadow: 0 4px 24px #0000000d;
+	}
+
+	@keyframes tilt-shaking {
+		0% {
+			transform: rotate(0deg);
+		}
+		25% {
+			transform: rotate(7deg);
+		}
+		50% {
+			transform: rotate(0deg);
+		}
+		75% {
+			transform: rotate(-7deg);
+		}
+		100% {
+			transform: rotate(0deg);
+		}
+	}
+	[data-shake-effect-container]:hover [data-shake-effect] {
+		animation: tilt-shaking 0.3s normal;
+		animation-iteration-count: 2;
+	}
+</style>

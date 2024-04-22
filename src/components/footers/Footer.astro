@@ -1,0 +1,89 @@
+---
+import ContainerFluid from "@/components/primitives/ContainerFluid.astro";
+import { footer } from "@/content";
+---
+
+<footer
+	class="bg-gradient-to-br from-primary-400 to-primary-600 text-white pt-24 md:pt-40"
+>
+	<ContainerFluid>
+		<div class="pb-24 md:pb-36">
+			<div class="flex flex-wrap">
+				<div class="mb-16 w-full xl:mb-0 xl:w-2/6">
+					<div class="max-w-md">
+						<h2 class="font-heading mb-10 text-4xl">
+							{footer.title}
+						</h2>
+						<p class="mb-6 font-light">{footer.subtitle}</p>
+						<div class="border-b border-gray-200 pb-8">
+							<a
+								class="mr-6 inline-block hover:text-gray-100"
+								href="#">{footer.contacts.phone}</a
+							><a
+								class="inline-block hover:text-gray-100"
+								href={`mailto:${footer.contacts.mail}`}
+							>
+								{footer.contacts.mail}
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="mb-8 w-1/2 lg:mb-0 lg:w-1/4 xl:w-1/6">
+					<h4 class="mb-12">Pagine</h4>
+					<ul></ul>
+				</div>
+				<div class="mb-8 w-1/2 lg:mb-0 lg:w-1/4 xl:w-1/6">
+					<h4 class="mb-12">Servizi</h4>
+					<ul></ul>
+				</div>
+				<div class="w-1/2 lg:w-1/4 xl:w-1/6">
+					<h4 class="mb-12">Ultimi articoli</h4>
+					<ul></ul>
+				</div>
+				<div class="w-1/2 lg:w-1/4 xl:w-1/6">
+					<h4 class="mb-12">Supporto</h4>
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+	</ContainerFluid>
+	<ContainerFluid class="bg-white py-12">
+		<div class="flex flex-wrap items-start justify-between">
+			<div class="mb-8 w-full lg:w-2/3 xl:w-auto 2xl:mb-0">
+				<span class="text-sm font-light text-gray-700"
+					>&copy; {footer.copyright}</span
+				>
+			</div>
+			<div class="w-full lg:w-1/3 xl:w-auto">
+				<div>
+					<a
+						class="mr-4 inline-block text-sm font-light text-gray-500 hover:text-gray-600"
+						href="#">Privacy Policy</a
+					>
+					<a
+						class="mr-4 inline-block text-sm font-light text-gray-500 hover:text-gray-600"
+						href="#">Termini di servizio</a
+					>
+					<a
+						class="inline-block text-sm font-light text-gray-500 hover:text-gray-600"
+						href="https://majestico.it"
+						target="_blank">Credits</a
+					>
+				</div>
+			</div>
+		</div>
+	</ContainerFluid>
+</footer>
+
+<style>
+	.truncate-lines {
+		display: block;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		max-width: calc(100% - 2rem);
+	}
+</style>
+
+<slot />

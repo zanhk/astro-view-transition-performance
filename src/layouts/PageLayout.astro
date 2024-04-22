@@ -1,0 +1,82 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Title from "@/components/primitives/Title.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+type Props = {
+	frontmatter: CollectionEntry<"pages">;
+};
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout>
+	<main
+		class:list={[
+			frontmatter.data.addPadding && "pb-28 md:pb-36",
+			frontmatter.data.hideTitle &&
+				frontmatter.data.addPadding &&
+				"pt-24 md:pt-32",
+		]}
+	>
+		{
+			frontmatter.data.hideTitle ? null : (
+				<header
+					class:list={[
+						"grid grid-cols-1 md:grid-cols-2 items-center bg-[#ffe5ea] gap-10 px-6",
+						frontmatter.data.cover
+							? "pt-20 md:pt-0"
+							: "py-20 lg:py-32",
+					]}
+				>
+					<div class="flex items-center justify-center">
+						<div class="flex flex-col gap-3 lg:gap-8 text-center md:text-left">
+							<Title level={1} data-page-main-title>
+								{frontmatter.data.title}
+							</Title>
+							{frontmatter.data?.subtitle && (
+								<Title
+									data-page-main-title
+									tag={2}
+									level={4}
+									class="text-slate-500"
+								>
+									{frontmatter.data?.subtitle}
+								</Title>
+							)}
+						</div>
+					</div>
+					{frontmatter.data.cover && (
+						<div class="flex justify-start h-[20rem] md:h-[25rem] lg:h-[30rem] mt-8">
+							<Image
+								width={800}
+								class="object-contain"
+								src={frontmatter.data.cover}
+								alt={frontmatter.data.title}
+							/>
+						</div>
+					)}
+				</header>
+			)
+		}
+		<slot />
+	</main>
+</BaseLayout>
+
+<style is:global>
+	[data-page-main-title] {
+		opacity: 0;
+		line-height: 1.2;
+	}
+	[data-page-main-title] > div {
+		position: relative;
+		margin: 0;
+	}
+	.split-parent {
+		overflow: hidden;
+	}
+	.split-child {
+		display: inline-block;
+	}
+</style>

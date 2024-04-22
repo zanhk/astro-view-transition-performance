@@ -1,0 +1,61 @@
+---
+import { pwaAssetsHead } from "virtual:pwa-assets/head";
+import { pwaInfo } from "virtual:pwa-info";
+import "@/styles/global.css";
+
+const { seo: seoProp } = Astro.props;
+
+const shareImage = new URL("/og.jpg", Astro.site).toString();
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	{
+		pwaAssetsHead.themeColor && (
+			<meta
+				name="theme-color"
+				content={pwaAssetsHead.themeColor.content}
+			/>
+		)
+	}
+	{pwaAssetsHead.links.map((link) => <link {...link} />)}
+	{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+	<script src="/src/pwa.ts"></script>
+
+	<!-- PRECONNECT FONTS -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+	<!-- FONTS -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+		rel="stylesheet"
+	/>
+
+	<!-- LIBRARIES -->
+	<script
+		defer
+		src="https://unpkg.com/@glhd/alpine-wizard@1.2.0/dist/wizard.cdn.min.js"
+	></script>
+	<script
+		defer
+		src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.13.5/dist/cdn.min.js"
+	></script>
+	<script
+		defer
+		src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.3.0/dist/alpine-clipboard.js"
+	></script>
+
+	<script is:inline>
+		if ("paintWorklet" in CSS) {
+			CSS.paintWorklet.addModule("/assets/js/squircle.js");
+		}
+	</script>
+
+	<slot />
+</head>
