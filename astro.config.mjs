@@ -1,5 +1,4 @@
 import alpinejs from "@astrojs/alpinejs";
-import cloudflare from "@astrojs/cloudflare";
 import tailwind from "@astrojs/tailwind";
 import AstroPWA from "@vite-pwa/astro";
 import { defineConfig } from "astro/config";
