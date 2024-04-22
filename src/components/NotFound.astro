@@ -1,31 +1,20 @@
----
-import Container from "@/components/primitives/Container.astro";
-import Link from "@/components/primitives/Link.astro";
-import Title from "@/components/primitives/Title.astro";
----
-
-<Container tag="section" class="pt-52 pb-40 md:pb-48 md:pt-64">
+<div class="pt-52 pb-40 md:pb-48 md:pt-64">
 	<div class="mx-auto text-center flex flex-col max-w-xl gap-12">
-		<div class="flex flex-col gap-4">
-			<Title level={4} tag={2}>404</Title>
-			<Title level={3} tag={1}>Whoops! La pagina che stai cercando non è stata trovata.</Title>
-		</div>
+		<div class="flex flex-col gap-4"></div>
 		<div class="flex flex-col gap-2">
-			<p class="text-gray-500 dark:text-gray-400">Ecco alcune pagine che potresti visitare:</p>
-			<ul class="flex flex-wrap justify-center items-center gap-x-4 text-gray-500 dark:text-gray-400">
+			<p class="text-gray-500 dark:text-gray-400">
+				Some pages you can check:
+			</p>
+			<ul
+				class="flex flex-wrap justify-center items-center gap-x-4 text-gray-500 dark:text-gray-400"
+			>
 				<li>
-					<Link href="/">Home</Link>
+					<a href="/">Home</a>
 				</li>
 				<li>
-					<Link href="/about">Chi siamo</Link>
-				</li>
-				<li>
-					<Link href="/servizi">Servizi</Link>
-				</li>
-				<li>
-					<Link href="/contatti">Contatti</Link>
+					<a href="/about">Chi siamo</a>
 				</li>
 			</ul>
 		</div>
 	</div>
-</Container>
+</div>

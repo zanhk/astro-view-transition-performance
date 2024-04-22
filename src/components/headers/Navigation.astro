@@ -1,8 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import Link from "@/components/primitives/Link.astro";
 import { header } from "@/content";
-import Container from "../primitives/Container.astro";
 
 const imagePath = header.logo.imagePath;
 
@@ -44,7 +42,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 			</div>
 		)
 	}
-	<Container>
+	<div>
 		<div
 			class="mx-auto w-full flex flex-col xl:flex-row py-4 xl:py-6 xl:items-stretch xl:justify-between"
 			:class="{'fixed top-0 left-0 w-screen h-screen bg-white z-20 px-6': open}"
@@ -128,21 +126,10 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 					>
 						<span>{header.contacts.phone}</span>
 					</a>
-					{
-						header.actions.map((action) => (
-							<Link
-								style={action.style as "outline" | "button"}
-								class=""
-								href={action.link}
-							>
-								<span>{action.title}</span>
-							</Link>
-						))
-					}
 				</div>
 			</nav>
 		</div>
-	</Container>
+	</div>
 </header>
 
 <style>
