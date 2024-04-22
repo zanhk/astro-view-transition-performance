@@ -7,10 +7,6 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
 	site: "https://astro-view-transition-performance.pages.dev",
-	output: "hybrid",
-	adapter: cloudflare({
-		imageService: "compile",
-	}),
 	vite: {
 		define: {
 			__DATE__: `'${new Date().toISOString()}'`,
