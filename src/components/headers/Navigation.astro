@@ -191,3 +191,35 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 		animation-iteration-count: 2;
 	}
 </style>
+
+<script>
+	var timing: number = performance.now();
+	var timingLoad: number = performance.now();
+
+	document.addEventListener(
+		"astro:before-preparation",
+		(ev) => {
+			timing = performance.now();
+			timingLoad = performance.now();
+		},
+		{ once: false },
+	);
+
+	document.addEventListener(
+		"astro:after-swap",
+		(ev) => {
+			timing = performance.now() - timing;
+			console.log(`Page swapped in ${timing}ms`);
+		},
+		{ once: false },
+	);
+
+	document.addEventListener(
+		"astro:page-load",
+		(ev) => {
+			timingLoad = performance.now() - timingLoad;
+			console.log(`Page loaded in ${timingLoad}ms`);
+		},
+		{ once: false },
+	);
+</script>
